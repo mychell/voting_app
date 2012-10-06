@@ -8,7 +8,7 @@
 
 		<?php foreach($data as $entry){ ?>
 			<div class="show-row">
-				<h2><?php echo $entry->title; ?></h2>
+				<h2><?php echo $entry->entry_title; ?></h2>
 				
 			</div>
 		<?php } ?>

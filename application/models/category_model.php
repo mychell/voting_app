@@ -27,9 +27,20 @@ class Category_model extends CI_Model
 		$data = $query->result();
     	return $data;
     }
-	public function insert($post)
+    public function query_cat_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('categories');
+        $data = $query->result();
+        return $data;
+    }
+	public function insert_cat($post)
 	{
 		$this->load->database();				
 		$this->db->insert('categories', $post);
+	}
+	public function delete_cat($post)
+	{
+    	
 	}
 }

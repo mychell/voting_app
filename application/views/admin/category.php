@@ -2,9 +2,10 @@
 	$this->load->view('inc/header');
 ?>
 
+<?php $data = $this->Category_model->query_all_categories(); ?>
+
 <div id="container">
 	<h1>Categories</h1>
-	<?php $data = $this->Category_model->query_all_categories(); ?>
 		
 		<?php foreach($data as $category){ ?>
 			<div class="show-row">

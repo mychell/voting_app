@@ -17,71 +17,94 @@ class Admin extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	function __construct(){
+	function __construct()
+	{
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->library('form_validation');
-		//$this->load->database();
-		//$this->load->helper('url');
 	}
 	public function index()
 	{
 		$this->load->view('admin/login');
 	}
-	public function categories($action = ""){
-		
-		switch($action)
-		{
+	public function cat($action = "", $id = "")
+	{
+	
+	   $this->load->model('Category_model');
+	
+	   $data = array(
+	           'id' => $id
+	           );
+	   
+    	switch($action)
+    	{
 			case "add":
-				if($this->input->post()){
+				if($this->input->post())
+				{
 					$post = $this->input->post();
 					unset($post['submit']);
 					
 					//validate the input
 					$this->form_validation->set_rules('cat_title', 'Category Title', 'trim|required');
 					
-					if($this->form_validation->run() == FALSE){
-						$this->load->view('/admin/new_category');
+					if($this->form_validation->run() == FALSE)
+					{
+						$this->load->view('/admin/cat_add');
 					}
-					else{
-						$this->load->model('Category_model');
-						$this->Category_model->insert($post);
+					else
+					{
+						$this->Category_model->insert_cat($post);
 						redirect($this->config->item('base_url').'admin/categories', 'refresh');
 					}
-				}else{
-					$this->load->view('/admin/new_category');
+				}
+				else
+				{
+					$this->load->view('/admin/cat_add');
 				}
 			break;
+			case "edit":
+			     $this->load->view('admin/cat_edit', $data);
+			break;
+			case "delete":
+			break;
 			default:
-				$this->load->model('Category_model');
 				$this->load->view('admin/category');
-		}
+    	}
 	}
-	public function entry(){
-		
+	public function entry($action="", $id="")
+	{		
 		$this->load->model('Entry_model');
-		$this->load->view('admin/entry');
-	}
-	public function entryadd(){
-		$this->load->view('admin/entryadd');
-	}
-	public function insertentry(){
-		if($this->input->post()){
-			$post = $this->input->post();
-			unset($post['submit']);
-			
-			//validate the input
-			$this->form_validation->set_rules('title', 'Title', 'trim|required');
-			
-			if($this->form_validation->run() == FALSE){
-				$this->load->view('/admin/entryadd');
-			}
-			else{
-				$this->load->model('Entry_model');
-				$this->Entry_model->insert($post);
-				redirect($this->config->item('base_url').'admin/entry', 'refresh');
-			}
-		}	
+		
+		switch($action)
+		{
+    		case "add":
+    		  if($this->input->post())
+    		  {
+        		  $post = $this->input->post();
+        		  unset($post['submit']);
+        		  
+        		  //validate user input
+        		  $this->form_validation->set_rules('entry_title', 'Entry Title', 'trim|required');
+        		  
+        		  if($this->form_validation->run() == FALSE)
+        		  {
+            		  $this->load->view('/admin/entry_add');
+        		  }
+        		  else{
+            		  $this->Entry_model->insert($post);
+            		  redirect($this->config->item('base_url').'admin/entry', 'refresh');
+        		  }
+    		  }else{
+        		  $this->load->view('/admin/entry_add');
+    		  }
+    		break;
+    		case "edit":
+    		break;
+    		case "delete":
+    		break;
+    		default:
+    		  $this->load->view('admin/entry');
+		}
 	}
 }
 
