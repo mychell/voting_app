@@ -9,7 +9,6 @@
 
 ?>
 
-<div id="container">
 	<h1>Edit Category</h1>
 
 	<?php echo validation_errors(); ?>
@@ -29,8 +28,6 @@
 	echo form_submit('submit', 'submit');
 	echo form_close();
 	?>
-
-</div>
 
 <?php
 	$this->load->view('inc/footer');

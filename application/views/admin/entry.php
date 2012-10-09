@@ -2,7 +2,6 @@
 	$this->load->view('inc/header');
 ?>
 
-<div id="container">
 	<h1>Entry</h1>
 	<?php $data = $this->Entry_model->query_all_entries(); ?>
 
@@ -12,7 +11,6 @@
 				
 			</div>
 		<?php } ?>
-</div>
 
 <?php
 	$this->load->view('inc/footer');

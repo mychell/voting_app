@@ -1,14 +1,14 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /**
-* Name:  Media Model
+* Name:  Entry Model
 *
 * Author:  Jason Jozwiak
 *
-* Location: http://github.com/jjozwiak/lloyd
+* Location: http://github.com/jjozwiak/voting_app
 *
 * Created:  04.24.12
 *
-* Description:  A model to handle media for Lloyd
+* Description:  A model to handle entries for the voting app
 *
 * Requirements: PHP5 or above
 *
@@ -26,6 +26,27 @@ class Entry_model extends CI_Model
 		$query = $this->db->get('entries');
 		$data = $query->result();
     	return $data;
+    }
+    public function query_entries_by_id($id)
+    {
+        $this->db->where('id', $id);
+        $query = $this->db->get('entries');
+        $data = $query->result();
+        return $data;
+    }
+    public function query_all_entries_by_cat($id)
+    {
+        $data = $this->query_all_entries();
+        
+        foreach($data as $cat){
+            $unserialized = unserialize($cat->categories);
+            
+            if(in_array($id, $unserialized)){
+                $entry[] = $cat->id;
+            }
+        }
+        
+        return $entry;
     }
 	public function insert($post)
 	{

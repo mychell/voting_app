@@ -19,7 +19,25 @@ class App extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('app_view');
+	    $this->load->model('Entry_model');
+	    $this->load->model('Category_model');
+	    $data = array();
+	    $categories = $this->Category_model->query_all_categories();
+
+	    foreach($categories as $category){
+	       
+	       //retrun all of the entries in a given category
+    	    $entries = $this->Entry_model->query_all_entries_by_cat($category->id);
+    	    
+    	    $cat_entries = array();
+    	    $cat_entries[] = $category->cat_title;
+    	    
+    	    foreach($entries as $entry){
+        	    $cat_entries[] = $this->Entry_model->query_entries_by_id($entry);
+    	    }
+    	    $data[] = $cat_entries;
+	    }
+		$this->load->view('app_view', array('data' => $data));
 	}
 }
 
