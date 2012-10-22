@@ -12,7 +12,6 @@
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
-        <link rel="stylesheet" href="/css/jquery.lightbox-0.5.css">
         <link rel="stylesheet" href="/css/main.css">
 
         <script src="/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
@@ -24,3 +23,11 @@
 
         <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
         <div class="container">
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <ul class="nav">
+                        <li class="active"><a href="/admin/cat">Categories</a></li>
+                        <li><a href="/admin/entry">Entries</a></li>
+                    </ul>
+            </div>
+        </div>

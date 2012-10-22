@@ -1,5 +1,5 @@
 <?php
-	$this->load->view('inc/header');
+	$this->load->view('inc/admin_header');
 ?>
 
 <?php $data = $this->Category_model->query_all_categories(); ?>

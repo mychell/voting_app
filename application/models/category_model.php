@@ -21,6 +21,17 @@ class Category_model extends CI_Model
 	        // Call the Model constructor
 	        parent::__construct();
 	}
+	private function check_mname_uniq($mname)
+	{
+	  $query = $this->db->get_where('categories', array('machine_name' => $mname));   
+	  $data = $query->result();
+	   
+	   if($data != NULL){
+    	   return TRUE;
+	   }else{
+    	   return FALSE;
+	   }	
+	}
     public function query_all_categories()
     {  	
 		$query = $this->db->get('categories');
@@ -36,8 +47,15 @@ class Category_model extends CI_Model
     }
 	public function insert_cat($post)
 	{
-		$this->load->database();				
-		$this->db->insert('categories', $post);
+		$unique = $this->check_mname_uniq($post['machine_name']);
+        
+        if($unique == FALSE){
+            $this->db->insert('categories', $post);
+        }else{
+            $post['machine_name'] = 'cat_'.time();
+            $this->db->insert('categories', $post);
+        }
+
 	}
 	public function delete_cat($post)
 	{

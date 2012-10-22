@@ -1,5 +1,5 @@
 <?php
-	$this->load->view('inc/header');
+	$this->load->view('inc/admin_header');
 	
 	$data = $this->Category_model->query_cat_by_id($id);
 	

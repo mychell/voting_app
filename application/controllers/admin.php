@@ -43,6 +43,7 @@ class Admin extends CI_Controller {
 					
 					//validate the input
 					$this->form_validation->set_rules('cat_title', 'Category Title', 'trim|required');
+					$this->form_validation->set_rules('machine_name', 'Machine Name', 'trim|required');
 					
 					if($this->form_validation->run() == FALSE)
 					{
@@ -51,7 +52,7 @@ class Admin extends CI_Controller {
 					else
 					{
 						$this->Category_model->insert_cat($post);
-						redirect($this->config->item('base_url').'admin/categories', 'refresh');
+						redirect($this->config->item('base_url').'admin/cat', 'refresh');
 					}
 				}
 				else
@@ -139,20 +140,6 @@ class Admin extends CI_Controller {
     		default:
     		  $this->load->view('admin/entry');
 		}
-	}
-	public function vote()
-	{
-    	if($this->input->post()){
-        	
-        	//insert votes into votes table
-        	
-        	//set user to inactive
-        	
-        	$this->load->view('thank_you');
-        	
-    	}else{
-        	$this->load->view('app_view');
-    	}
 	}
 }
 

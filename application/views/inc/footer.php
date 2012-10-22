@@ -6,6 +6,7 @@
 
 
         <script src="/js/vendor/bootstrap.min.js"></script>
+        <script src="/js/jquery.lightbox-0.5.min.js"></script>
 
         <script src="/js/main.js"></script>
 

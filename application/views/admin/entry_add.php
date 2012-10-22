@@ -1,5 +1,5 @@
 <?php
-	$this->load->view('inc/header');
+	$this->load->view('inc/admin_header');
 ?>
 
 	<h1>New Entry</h1>

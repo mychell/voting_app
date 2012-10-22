@@ -31,6 +31,7 @@ class App extends CI_Controller {
     	    
     	    $cat_entries = array();
     	    $cat_entries[] = $category->cat_title;
+    	    $cat_entries[] = $category->machine_name;
     	    
     	    foreach($entries as $entry){
         	    $cat_entries[] = $this->Entry_model->query_entries_by_id($entry);
@@ -38,6 +39,27 @@ class App extends CI_Controller {
     	    $data[] = $cat_entries;
 	    }
 		$this->load->view('app_view', array('data' => $data));
+	}
+	public function vote()
+	{
+    	if($this->input->post()){
+        	
+        	$data = $this->input->post();      	
+        	
+        	//insert votes into votes table
+        	foreach($data as $key=>$value)
+        	{	
+            	$query = "INSERT INTO votes (catmname, entid) VALUES ('$key', '$value[0]')";
+            	mysql_query($query);
+        	}
+        	
+        	//set user to inactive
+        	
+        	$this->load->view('thank_you', array('data' => $data));
+        	
+    	}else{
+        	redirect('/', 'refresh');
+    	}
 	}
 }
 
