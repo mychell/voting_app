@@ -4,7 +4,7 @@
 
 	<h1>Thank You</h1>
 	
-	<?php print_r($data); 
+	<?php //print_r($data); 
     	
 	?>
 	

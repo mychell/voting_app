@@ -6,15 +6,15 @@ class App extends CI_Controller {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
+	 * 		http://example.com/index.php/app
 	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
+	 * 		http://example.com/index.php/app/index
 	 *	- or -
 	 * Since this controller is set as the default controller in 
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
 	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
+	 * map to /index.php/app/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index()
@@ -54,12 +54,14 @@ class App extends CI_Controller {
 	       unset($post['submit']);
 	       
 	       //!TODO Move this into a user model and check if user is active
-	       $query = $this->db->get_where('users', array('username' => $post['email']));   
+	       $this->db->where('username', $post['email']);
+	       $this->db->where('active', 1);
+	       $query = $this->db->get('users');
 	       $data = $query->result();
 	   
 	       if($data != NULL){
 	           //User is active so we will log her in
-    	       $this->session->set_userdata(array('logged_in'=>TRUE));
+    	       $this->session->set_userdata(array('logged_in'=>TRUE, 'username'=>$post['email']));
     	       redirect('/', 'refresh');
     	   }else{
     	       //User is inactive so we will send back a message saying she already voted or does not have access to system
@@ -85,6 +87,16 @@ class App extends CI_Controller {
         	}
         	
         	//set user to inactive
+        	$data = array(
+               'active' => 0,
+               'password' => NULL
+            );
+
+            $this->db->where('username', $this->session->userdata('username'));
+            $this->db->update('users', $data);
+            
+            //May not necessarily need to destroy session
+            $this->session->sess_destroy();
         	
         	$this->load->view('thank_you', array('data' => $data));
         	
