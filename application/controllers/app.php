@@ -53,7 +53,7 @@ class App extends CI_Controller {
 	       $post = $this->input->post();
 	       unset($post['submit']);
 	       
-	       //!TODO Move this into a user model and check if user is active
+	       //!TODO Move this into a user model
 	       $this->db->where('username', $post['email']);
 	       $this->db->where('active', 1);
 	       $query = $this->db->get('users');
@@ -79,11 +79,13 @@ class App extends CI_Controller {
         	
         	$data = $this->input->post();      	
         	
-        	//insert votes into votes table
-        	foreach($data as $key=>$value)
-        	{	
-            	$query = "INSERT INTO votes (catmname, entid) VALUES ('$key', '$value[0]')";
-            	mysql_query($query);
+        	//insert votes into votes table if session is still active
+        	if($this->session->userdata('logged_in') == TRUE){
+        	   foreach($data as $key=>$value)
+        	   {	
+            	   $query = "INSERT INTO votes (catmname, entid) VALUES ('$key', '$value[0]')";
+            	   mysql_query($query);
+                }
         	}
         	
         	//set user to inactive
@@ -95,7 +97,7 @@ class App extends CI_Controller {
             $this->db->where('username', $this->session->userdata('username'));
             $this->db->update('users', $data);
             
-            //May not necessarily need to destroy session
+            //Destroy session so if user refreshes on thank you page votes will not be posted a second time
             $this->session->sess_destroy();
         	
         	$this->load->view('thank_you', array('data' => $data));
