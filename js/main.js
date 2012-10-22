@@ -1,5 +1,4 @@
 
 $(function(){
-    $('a').lightBox({fixedNavigation:true});
-    
+    $('a.entry-image').lightBox({fixedNavigation:true});   
 });

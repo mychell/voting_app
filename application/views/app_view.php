@@ -13,7 +13,7 @@
     	   $count = count($row);
         	$i = 2;
         	echo '<div class="row-fluid">';
-        	echo '<h2>'.$row[0].'-'.$count.'</h2>';
+        	echo '<h2>' . $row[0] . '</h2>';
         	
         	while($i < $count){
         	   
@@ -27,8 +27,8 @@
         	       
         	       echo '<div class="span3">';
             	   echo '<h3>'.$entry_data->entry_title.'</h3>';
-            	   echo '<a href="/uploads/'.$entry_data->file_name.'"><img src="/uploads/'.$thumb.'"/></a>';
-            	   echo form_radio(array('name' => $row[1].'[]', 'value' => $entry_data->id));
+            	   echo '<a href="/uploads/' . $entry_data->file_name . '" class="entry-image"><img src="/uploads/' . $thumb . '"/></a>';
+            	   echo form_radio(array('name' => $row[1] . '[]', 'value' => $entry_data->id));
             	   echo '</div>';
                }
         	   

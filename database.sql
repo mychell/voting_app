@@ -1,111 +1,92 @@
-# ************************************************************
-# Sequel Pro SQL dump
-# Version 3408
-#
-# http://www.sequelpro.com/
-# http://code.google.com/p/sequel-pro/
-#
-# Host: localhost (MySQL 5.1.44)
-# Database: local_voting_app
-# Generation Time: 2012-10-09 03:36:26 +0000
-# ************************************************************
+/*
+ Navicat MySQL Data Transfer
 
+ Source Server         : local
+ Source Server Version : 50144
+ Source Host           : localhost
+ Source Database       : local_voting_app
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+ Target Server Version : 50144
+ File Encoding         : utf-8
 
+ Date: 10/21/2012 22:34:02 PM
+*/
 
-# Dump of table categories
-# ------------------------------------------------------------
+SET NAMES utf8;
+SET FOREIGN_KEY_CHECKS = 0;
 
+-- ----------------------------
+--  Table structure for `categories`
+-- ----------------------------
 DROP TABLE IF EXISTS `categories`;
-
 CREATE TABLE `categories` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `machine_name` varchar(255) DEFAULT NULL,
   `cat_title` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
-LOCK TABLES `categories` WRITE;
-/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+-- ----------------------------
+--  Records of `categories`
+-- ----------------------------
+BEGIN;
+INSERT INTO `categories` VALUES ('30', 'cat_1', 'Most GA-like'), ('31', 'cat_2', 'Traditional'), ('32', 'cat_3', 'Spookiest'), ('33', 'cat_4', 'Chicago-themed'), ('34', 'cat_5', 'Kitten Friday');
+COMMIT;
 
-INSERT INTO `categories` (`id`, `cat_title`)
-VALUES
-	(1,'test category'),
-	(2,'category test 2'),
-	(3,'Category 3'),
-	(4,'Brand new category');
-
-/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table entries
-# ------------------------------------------------------------
-
+-- ----------------------------
+--  Table structure for `entries`
+-- ----------------------------
 DROP TABLE IF EXISTS `entries`;
-
 CREATE TABLE `entries` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `entry_title` varchar(255) DEFAULT NULL,
   `file_name` varchar(255) DEFAULT NULL,
   `categories` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
-LOCK TABLES `entries` WRITE;
-/*!40000 ALTER TABLE `entries` DISABLE KEYS */;
+-- ----------------------------
+--  Records of `entries`
+-- ----------------------------
+BEGIN;
+INSERT INTO `entries` VALUES ('15', 'Entry 2', 'slide6.jpg', 'a:2:{i:0;s:2:\"31\";i:1;s:2:\"33\";}'), ('14', 'Entry 1', 'trianex7-full.jpg', 'a:5:{i:0;s:2:\"30\";i:1;s:2:\"31\";i:2;s:2:\"32\";i:3;s:2:\"33\";i:4;s:2:\"34\";}');
+COMMIT;
 
-INSERT INTO `entries` (`id`, `entry_title`, `file_name`, `categories`)
-VALUES
-	(13,'ladies drink','claim_prize_button10.jpg','a:4:{i:0;s:1:\"1\";i:1;s:1:\"2\";i:2;s:1:\"3\";i:3;s:1:\"4\";}'),
-	(12,'poop face','claim_prize_button9.jpg','a:1:{i:0;s:1:\"3\";}'),
-	(11,'here\'s an entry','claim_prize_button8.jpg','a:1:{i:0;s:1:\"3\";}'),
-	(9,'hellow theere','claim_prize_button6.jpg','a:2:{i:0;s:1:\"1\";i:1;s:1:\"2\";}'),
-	(10,'hellow again','claim_prize_button7.jpg','a:2:{i:0;s:1:\"1\";i:1;s:1:\"3\";}');
-
-/*!40000 ALTER TABLE `entries` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table users
-# ------------------------------------------------------------
-
+-- ----------------------------
+--  Table structure for `users`
+-- ----------------------------
 DROP TABLE IF EXISTS `users`;
-
 CREATE TABLE `users` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL DEFAULT '',
   `password` varchar(100) NOT NULL DEFAULT '',
   `active` int(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+-- ----------------------------
+--  Records of `users`
+-- ----------------------------
+BEGIN;
+INSERT INTO `users` VALUES ('1', 'jjozwiak@gacommunication.com', '', '1');
+COMMIT;
 
-
-# Dump of table votes
-# ------------------------------------------------------------
-
+-- ----------------------------
+--  Table structure for `votes`
+-- ----------------------------
 DROP TABLE IF EXISTS `votes`;
-
 CREATE TABLE `votes` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `catid` int(11) DEFAULT NULL,
+  `catmname` varchar(255) DEFAULT NULL,
   `entid` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
 
+-- ----------------------------
+--  Records of `votes`
+-- ----------------------------
+BEGIN;
+INSERT INTO `votes` VALUES ('1', '0', '0'), ('2', '0', '0'), ('3', '0', '0'), ('4', '0', '0'), ('5', '0', '0'), ('6', 'cat_1', '0'), ('7', 'cat_2', '0'), ('8', 'cat_3', '0'), ('9', 'cat_4', '0'), ('10', 'cat_5', '0'), ('11', 'cat_1', '14'), ('12', 'cat_2', '15'), ('13', 'cat_3', '14'), ('14', 'cat_4', '15'), ('15', 'cat_5', '14'), ('16', 'cat_1', '14'), ('17', 'cat_2', '15'), ('18', 'cat_3', '14'), ('19', 'cat_4', '15'), ('20', 'cat_5', '14');
+COMMIT;
 
-
-
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SET FOREIGN_KEY_CHECKS = 1;
