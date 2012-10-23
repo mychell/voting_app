@@ -53,4 +53,13 @@ class Entry_model extends CI_Model
 		$this->load->database();				
 		$this->db->insert('entries', $post);
 	}
+	public function update($post)
+	{
+	   $data = array(
+	       'entry_title' => $post['entry_title'],
+	       'categories' => $post['categories']
+	   );
+    	$this->db->where('id', $post['id']);
+    	$this->db->update('entries', $data);
+	}
 }

@@ -9,7 +9,8 @@
 		<?php foreach($data as $category){ ?>
 			<div class="show-row">
 				<h2><?php echo $category->cat_title; ?></h2>
-				<a href="/admin/cat/edit/<?php echo $category->id; ?>">edit</a>
+				<a href="/admin/cat/edit/<?php echo $category->id; ?>">edit</a> | 
+				<a href="/admin/cat/delete/<?php echo $category->id; ?>">delete</a>
 			</div>
 		<?php } ?>
 

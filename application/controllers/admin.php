@@ -20,13 +20,43 @@ class Admin extends CI_Controller {
 		$this->load->library('session');
 		$this->load->library('form_validation');
 	}
+	private function auth_check(){
+    	if($this->session->userdata('admin') != TRUE){
+    	  redirect('/admin/login', 'refresh');
+    	  die();
+	   }
+	}
 	public function index()
 	{
-		$this->load->view('admin/login');
+	   //is this person an admin?
+	   $this->auth_check();
+	   
+	   $this->load->view('admin/dashboard');
+	}
+	public function auth()
+	{
+	   if($this->input->post()){
+    	   $post = $this->input->post();
+    	   if($post['password'] == 'GACG!!smile8'){
+        	   $this->session->set_userdata(array('admin'=>TRUE));
+        	   redirect('/admin', 'refresh');
+    	   }else{
+        	   redirect('/admin/login', 'refresh');
+    	   }
+	   }else{
+    	   redirect('/admin/login', 'refresh');
+	   }
+	}
+	public function login()
+	{
+        $this->load->view('admin/login');	
 	}
 	public function cat($action = "", $id = "")
 	{
-	
+	   
+	   //is this person an admin?
+	   $this->auth_check();
+	   
 	   $this->load->model('Category_model');
 	
 	   $data = array(
@@ -63,6 +93,18 @@ class Admin extends CI_Controller {
 			case "edit":
 			     $this->load->view('admin/cat_edit', $data);
 			break;
+			case "update":
+			     if($this->input->post()){
+    			     $post = $this->input->post();
+    			     unset($post['submit']); 
+        		  
+    			     $this->Category_model->update($post);
+        		  
+    			     redirect('/admin/cat', 'refresh');
+    			 }else{
+        		   redirect('/admin/cat', 'refresh');
+    		   }
+			break;
 			case "delete":
 			break;
 			default:
@@ -70,10 +112,17 @@ class Admin extends CI_Controller {
     	}
 	}
 	public function entry($action="", $id="")
-	{		
+	{
+	    //is this person an admin?
+	    $this->auth_check();
+	   
 		$this->load->model('Entry_model');
 		$this->load->model('Category_model');
 		$categories = $this->Category_model->query_all_categories();
+		
+		$data = array(
+	               'id' => $id
+	           );
 		
 		switch($action)
 		{
@@ -133,13 +182,35 @@ class Admin extends CI_Controller {
     		  }
     		break;
     		case "edit":
+    		  $data = array('id' => $id, 'categories' => $categories);
     		  $this->load->view('/admin/entry_edit', $data);
+    		break;
+    		case "update":
+    		   if($this->input->post()){
+        		  $post = $this->input->post();
+        		  unset($post['submit']);
+        		  $selected_categories = serialize($post['categories']);
+        		  
+        		  $post['categories'] = $selected_categories; 
+        		  
+        		  $this->Entry_model->update($post);
+        		  
+        		  redirect('/admin/entry', 'refresh');
+    		   }else{
+        		   redirect('/admin', 'refresh');
+    		   }
     		break;
     		case "delete":
     		break;
     		default:
     		  $this->load->view('admin/entry');
 		}
+	}
+	public function results()
+	{
+	   //is this person an admin?
+	   $this->auth_check();
+	   $this->load->view('admin/results');
 	}
 }
 

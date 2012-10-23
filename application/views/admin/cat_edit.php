@@ -21,7 +21,7 @@
 					'class' => 'span6'
 					);
 					
-	echo form_open('admin/cat/edit', $attributes);
+	echo form_open('admin/cat/update', $attributes);
 	echo form_label('Category Title', 'cat_title');
 	echo form_input($cat_title, $title);
 	echo form_hidden('cat_id', $id);

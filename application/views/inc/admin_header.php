@@ -26,8 +26,20 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <ul class="nav">
-                        <li class="active"><a href="/admin/cat">Categories</a></li>
-                        <li><a href="/admin/entry">Entries</a></li>
+                        <li><a href="/admin">Home</a></li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/cat/add">add</a></li>
+                                <li><a href="/admin/cat">edit</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Entries</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/admin/entry/add">add</a></li>
+                                <li><a href="/admin/entry">edit</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/admin/results">Results</a></li>
                     </ul>
             </div>
         </div>

@@ -57,6 +57,14 @@ class Category_model extends CI_Model
         }
 
 	}
+	public function update($post)
+	{
+    	$data = array(
+	       'cat_title' => $post['cat_title']
+	   );
+    	$this->db->where('id', $post['cat_id']);
+    	$this->db->update('categories', $data);
+	}
 	public function delete_cat($post)
 	{
     	
