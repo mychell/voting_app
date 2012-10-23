@@ -106,6 +106,8 @@ class Admin extends CI_Controller {
     		   }
 			break;
 			case "delete":
+			     $this->Category_model->delete_cat($id);
+			     redirect('/admin/cat', 'refresh');
 			break;
 			default:
 				$this->load->view('admin/category');
@@ -201,10 +203,18 @@ class Admin extends CI_Controller {
     		   }
     		break;
     		case "delete":
+    		  $this->Entry_model->delete($id);
+    		  redirect('/admin/entry', 'refresh');
     		break;
     		default:
     		  $this->load->view('admin/entry');
 		}
+	}
+	public function users()
+	{
+    	//is this person an admin?
+	   $this->auth_check();
+	   $this->load->view('admin/users');
 	}
 	public function results()
 	{

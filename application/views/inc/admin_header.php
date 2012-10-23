@@ -9,6 +9,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
+        <META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/bootstrap-responsive.min.css">
@@ -39,6 +40,7 @@
                                 <li><a href="/admin/entry">edit</a></li>
                             </ul>
                         </li>
+                        <li><a href="/admin/users">Users</a></li>
                         <li><a href="/admin/results">Results</a></li>
                     </ul>
             </div>

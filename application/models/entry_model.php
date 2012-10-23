@@ -62,4 +62,8 @@ class Entry_model extends CI_Model
     	$this->db->where('id', $post['id']);
     	$this->db->update('entries', $data);
 	}
+	public function delete($id)
+	{
+    	$this->db->delete('entries', array('id' => $id));
+	}
 }
