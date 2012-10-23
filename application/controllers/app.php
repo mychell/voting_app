@@ -38,10 +38,10 @@ class App extends CI_Controller {
         	    $cat_entries[] = $category->machine_name;
     	    
         	    foreach($entries as $entry){
-        	       $cat_entries[] = $this->Entry_model->query_entries_by_id($entry);
-        	   }
-        	       $data[] = $cat_entries;
+        	           $cat_entries[] = $this->Entry_model->query_entries_by_id($entry);
         	       }
+        	   $data[] = $cat_entries;
+        	   }
         	       $this->load->view('app_view', array('data' => $data));    	    
     	    
 	    }

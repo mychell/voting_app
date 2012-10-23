@@ -220,7 +220,40 @@ class Admin extends CI_Controller {
 	{
 	   //is this person an admin?
 	   $this->auth_check();
-	   $this->load->view('admin/results');
+	   $this->load->model('Votes_model');
+	   $this->load->model('Entry_model');
+	   $this->load->model('Category_model');
+	   $data = array();
+	   $categories = $this->Category_model->query_all_categories();
+    	    
+    	    foreach($categories as $category){
+	       
+        	    //retrun all of the entries in a given category
+        	    $entries = $this->Entry_model->query_all_entries_by_cat($category->id);
+    	    
+        	    $cat_entries = array();
+        	    $cat_entries[] = $category->cat_title;
+        	    $cat_entries[] = $category->machine_name;
+    	    
+        	    foreach($entries as $entry){
+        	           $entry_array = array();
+        	           $entry_result = $this->Entry_model->query_entries_by_id($entry);
+        	           
+        	           foreach($entry_result as $entry_data){
+            	           $entry_title = $entry_data->entry_title;
+        	           }
+        	           
+        	           $entry_array['entry'] = $entry_title;
+        	           
+        	           $votecount = count($this->Votes_model->query_entry_votes_by_cat($category->machine_name, $entry));
+        	           $entry_array['votes'] = $votecount;
+
+        	           $cat_entries[] = $entry_array;
+        	           
+        	       }
+        	   $data[] = $cat_entries;
+        	   }
+	   $this->load->view('admin/results', array('data' => $data));
 	}
 }
 
