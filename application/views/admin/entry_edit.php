@@ -9,6 +9,7 @@
         
         foreach($data as $entry){
              $title = $entry->entry_title;
+             $contestant = $entry->contestant;
              $entry_cat_serial = $entry->categories;
         }
         $entry_cat = unserialize($entry_cat_serial);
@@ -25,10 +26,17 @@
 					'class' => 'span6',
 					'value' => $title
 					);
+	$contestant = array(
+					'name' => 'contestant',
+					'class' => 'span6',
+					'value' => $contestant
+					);
 					
 	echo form_open('admin/entry/update', $attributes);
 	echo form_label('Entry Title', 'entry_title');
 	echo form_input($title);
+	echo form_label("Contestant's Name", 'contestant');
+	echo form_input($contestant);
 	foreach($categories as $category){
 	   $checked = FALSE;
 	   

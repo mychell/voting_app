@@ -57,6 +57,7 @@ class Entry_model extends CI_Model
 	{
 	   $data = array(
 	       'entry_title' => $post['entry_title'],
+	       'contestant' => $post['contestant'],
 	       'categories' => $post['categories']
 	   );
     	$this->db->where('id', $post['id']);

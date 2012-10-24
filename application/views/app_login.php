@@ -7,6 +7,7 @@
 	</pre>-->
 	<p>To vote, please enter your GA email address</p>
 	<?php
+    	echo $message;
 	    echo form_open('/app/auth');
 	    echo form_label('Email Address', 'email');
 	    echo form_input(array('name'=>'email'));

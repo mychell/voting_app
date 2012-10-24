@@ -16,6 +16,11 @@
 	   'class' => 'span6', 
 	   'value' => set_value('entry_title')
 	);
+	$contestant = array(
+	   'name' => 'contestant', 
+	   'class' => 'span6', 
+	   'value' => set_value('contestant')
+	);
     $file = array(
         'name' => 'userfile', 
         'class' => 'span12'
@@ -24,6 +29,8 @@
 	echo form_open_multipart('admin/entry/add', $attributes);
 	echo form_label('Entry Title', 'entry_title');
 	echo form_input($title);
+	echo form_label("Contestant's Name", 'contestant');
+	echo form_input($contestant);
 	echo form_upload($file);
 	
     foreach($categories as $category){

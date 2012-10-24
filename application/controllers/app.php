@@ -21,7 +21,12 @@ class App extends CI_Controller {
 	{
 	    
 	    if($this->session->userdata('logged_in') == FALSE){
-    	    $this->load->view('app_login');
+	       if($this->session->userdata('message') == TRUE){
+    	       $message = array('message' => '<div class="alert alert-error">Our records indicate that your email is not in the system or has already been used to cast a vote :-) If this is not true, please contact Cori to reset your email.</div>');
+	       }else{
+    	       $message = array('message' => '');
+	       }
+    	    $this->load->view('app_login', $message);
 	    }else{
     	    $this->load->model('Entry_model');
     	    $this->load->model('Category_model');
@@ -65,6 +70,7 @@ class App extends CI_Controller {
     	       redirect('/', 'refresh');
     	   }else{
     	       //User is inactive so we will send back a message saying she already voted or does not have access to system
+    	       $this->session->set_userdata(array('logged_in'=>FALSE, 'message'=>TRUE));
         	   redirect('/', 'refresh');
            }	
 	   
@@ -82,7 +88,8 @@ class App extends CI_Controller {
         	//insert votes into votes table if session is still active
         	if($this->session->userdata('logged_in') == TRUE){
         	   foreach($data as $key=>$value)
-        	   {	
+        	   {
+        	       //!TODO get this out of the controller into a model and use active record class	
             	   $query = "INSERT INTO votes (catmname, entid) VALUES ('$key', '$value[0]')";
             	   mysql_query($query);
                 }

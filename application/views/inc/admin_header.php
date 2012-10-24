@@ -27,7 +27,7 @@
             <div class="navbar">
                 <div class="navbar-inner">
                     <ul class="nav">
-                        <li><a href="/admin">Home</a></li>
+                        <li><a href="/">Home</a></li>
                         <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Categories</a>
                             <ul class="dropdown-menu">
                                 <li><a href="/admin/cat/add">add</a></li>

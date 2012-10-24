@@ -9,14 +9,14 @@
         	$i = 2;
         	echo '<div class="row-fluid">';
         	echo '<h2>' . $row[0] . '</h2>';
-        	echo '<table><tbody>';
-        	echo '<tr><th>Entry Title</th><th>Votes</th></tr>';
+        	echo '<table class="table table-striped table-bordered"><tbody>';
+        	echo '<thead><tr><th>Entry Title</th><th>Votes</th></tr></thead>';
         	while($i < $count){
         	   
         	   $entry = $row[$i];
         	   echo '<tr>';
-        	   echo '<td>'.$entry['entry'].'</td>';
-        	   echo '<td>'.$entry['votes'].'</td>';
+        	   echo '<td class="span2">'.$entry['entry'].'</td>';
+        	   echo '<td class="span2">'.$entry['votes'].'</td>';
         	   echo '</tr>';
                $i++;
                

@@ -210,11 +210,65 @@ class Admin extends CI_Controller {
     		  $this->load->view('admin/entry');
 		}
 	}
-	public function users()
+	public function users($action="")
 	{
     	//is this person an admin?
 	   $this->auth_check();
-	   $this->load->view('admin/users');
+	   switch($action){
+	       
+	       case 'add':
+	           if($this->input->post()){
+	               $post = $this->input->post();
+	               unset($post['submit']);
+	               //File Upload
+        		  $config['upload_path'] = './uploads/';
+        		  $config['allowed_types'] = 'csv|txt';
+        		  
+        		  $this->load->library('upload', $config);
+        		  
+        		   if(!$this->upload->do_upload())
+        		  {
+            		  $error = array('error' => $this->upload->display_errors());
+            		  //validate user input
+            		  $this->load->view('/admin/users', array('error' => $error));
+        		  }
+        		  else
+        		  {
+        		      //We'll grab the data from the file upload to store in the database
+        		      $file_data = $this->upload->data();
+        		      $file_path = $file_data['full_path'];
+        		      
+        		      if (($handle = fopen($file_path, "r")) !== FALSE){
+            		      while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            		      
+            		          //values in row
+            		          $email = $data[0];
+            		          $active = $data[1];
+            		          
+            		          //insert values into users table
+            		          $upload_data = array(
+            		              'username' => $email ,
+            		              'active' => $active
+            		          );
+
+            		          $this->db->insert('users', $upload_data);
+            		          
+                		      
+                    		  }
+                        fclose($handle);
+        		      }
+            		  
+            		  redirect($this->config->item('base_url').'admin/users', 'refresh');
+        		  }
+    	           
+	           }else{
+    	           $this->load->view('admin/users');
+	           }
+	       break;
+    	   default:
+    	   $this->load->view('admin/users');
+	   }
+	   //$this->load->view('admin/users');
 	}
 	public function results()
 	{
